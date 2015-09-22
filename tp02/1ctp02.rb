@@ -3,10 +3,9 @@
 
 def da_nil?
   if block_given?
-    result = yield
+    return yield.nil?
   else
     puts "No se ha recibido ningún bloque."
     return nil
   end
-  result.nil?
 end
