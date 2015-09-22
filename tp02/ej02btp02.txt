@@ -1,0 +1,3 @@
+La diferencia entre "include" y "extend" es que
+-include: hace los métodos del módulo disponibles a la INSTANCIA de una clase mientras que
+-extend: hace que esos métodos estén disponibles para ESA misma clase. Es decir, que se hace un método de clase.
