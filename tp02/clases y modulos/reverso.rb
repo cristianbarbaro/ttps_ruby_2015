@@ -12,3 +12,13 @@ module Reverso
     puts "#{self.class.to_s.reverse}"
   end
 end
+
+# ---------------------------------> Ejemplo:
+
+class String
+  include Reverso
+end
+
+puts "hola".ssalc
+
+puts "hola".di_tcejbo
