@@ -10,37 +10,90 @@
 # identificado por sym fue invocado en la instancia receptora.
 
 
+#Included (mod) lo que hace esto es incluir este módulo en otra clase o módulo.
+# por ejemplo:
+
+# module A
+#   def A.included(mod)
+#     puts "#{self} included in #{mod}"
+#   end
+# end
+# module Enumerable
+#   include A           //Aquí se llama a ese método de arriba.
+# end
+# => prints "A included in Enumerable"
+# Esto es útil por si deseo realizar alguna acción al incluir este módulo en la clase o módulo mod.
+
+
+#Ahora un poco de alias_method:
+#El uso del alias_method me sirve para renombrar el método que quiero modificar y no perder su referencia, de
+#esta manera podré contabilizar sus invocaciones, es decir, redefinir el método en tiempo de ejecución y luego llamarlo
+#Aquí podré llevar la cuenta del mismo y luego invocarlo sin perderlo.
+
+# module Mod
+#   alias_method :orig_exit, :exit
+#   def exit(code=0)
+#     puts "Exiting with code #{code}"
+#     orig_exit(code)
+#   end
+# end
+# include Mod
+# exit(99)
+
+# produces:
+# Exiting with code 99
+
+
 module Countable
 
-  module ClassMethods
-    def count_invocations_of(*syms)
-      @@hash = Hash.new
-      syms.each { |sym| @@hash[sym] = 0 }
-    end
-
-    def hash
-      @@hash
-    end
-  end
-
-  def invoked?(sym)
-    invoked(sym) != 0
-  end
-
-  def invoked(sym)
-    self.class.hash.values_at(sym)
-  end
-
-  #Incluyo los métodos de clase a mi módulo
+  #Incluyo los métodos de clase a mi módulo cuando se llama al include que incluirá este módulo.
+  #El included se ejecuta siempre que se hace include y lleva a cabo altas tareas de locuras.
   def self.included(base)
     base.extend(ClassMethods)
   end
+
+  module ClassMethods
+
+    def count_invocations_of(*syms)
+
+      define_method(:hash) do
+        @hash ||= Hash.new 0 #
+      end
+
+      syms.each do |sym|
+
+        sym_old = ("#{sym}"+"_old")
+
+        # hash[sym] = 0
+
+        alias_method(sym_old ,sym)
+
+        define_method(sym) do |*args|
+          #Esto inicializa el hash en el caso que no lo esté.
+          @hash[sym] += 1
+          send sym_old, *args
+        end
+
+      end
+    end
+
+  end
+
+  #Métodos de instancia
+  def invoked?(sym)
+    self.invoked(sym) > 0
+  end
+
+  def invoked(sym)
+    hash[sym]
+  end
+
 end
 
-#NOTA: algo que falta hacer es ver cómo contabilizar la cantidad de veces que se llama al método que me interesa.
 
 class Greeter
   include Countable
+
   def hi
     puts 'hola'
   end
@@ -52,12 +105,13 @@ a = Greeter.new
 b = Greeter.new
 
 puts a.invoked? :hi
+# => false
 puts b.invoked? :hi
-
-puts a.hi
-
+# => false
+a.hi
 puts a.invoked? :hi
-
+# => true
 puts a.invoked :hi
-
+# => 1
 puts b.invoked :hi
+# => 0
