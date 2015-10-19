@@ -1,0 +1,57 @@
+Pregunta: ¿Qué son los lazy enumerators? ¿Qué ventajas les ves con respecto al uso de los enumeradores que no son lazy?
+  Tip: analizarlo pensando en conjunto de datos grandes.
+
+Respuesta:
+Los Enumerators que no son lazy se crean a partir de colecciones ya existentes, cuenta con el método next y otros más. Se los puede crear
+enviándoles el mensaje :to_enum, por ejemplo. Si la colección a partir de la cual se crea tenía muchos elementos, estos suelen ocupar
+gran cantidad de memoria.
+Por otro lado, tenemos los Enumerators lazy, a estos les puedo decir cómo será la secuencia de elemento a elemento mediante el envío de
+un bloque y el siguiente elemento se obtiene cuando se lo pide, es decir, es bajo demanda. De esta manera, no es necesario tener todos
+los elementos almacenados en memoria. Según mi amigo Cristian, esto se hace a partir del elemento en el que me encuentro parado (de allí
+proviene este término "lazy" y no porque sea pajoso) para obtener al siguiente elemento de la iteración. Estos deben recibir un bloque que tiene
+como parámetro un objeto. Ahora bien, esto es gracias a la ayuda del loco este, se ejecuta de la siguiente forma:
+el código dentro del bloque se ejecuta por tandas, es decir cada vez que se hace un next, se avanza hasta la sentencia que interactúa
+con el objeto parámetro (después pongo el ejemplo para que sea más claro el asunto) y esto se queda congelado hasta recibir el siguiente :next.
+Bueno, aclaremos una cosa: acá podemos considerar que :<< y :yield son equivalentes. No sé si es tan así, por las dudas no lo afirmo.
+
+
+pairs = Enumerator.new do |yielder|
+    actual = 0
+    loop do
+        yielder << actual
+        actual += 2
+    end
+end
+
+Aquí obtenemos todos los números pares. Bien, para obtener los primeros 10, debo ejecutar lo que sigue:
+pairs.first(10).each {|e| puts e}
+El bloque imprimirá cada uno de los elementos que cumplan la condición. Es decir, una vez obtenido el elemento, deseo hacer alguna cosa
+no chancha con el mismo. Lo hago.
+
+----------------------------------------
+Este es otro ejemplo que sí funciona, notar que todo funciona de una manera muy extraña.
+
+fibonacci = Enumerator.new do |caller|
+    i1, i2 = 1, 1
+    loop do
+        caller.yield i1
+        i1, i2 = i2, i1+i2
+    end
+end
+
+6.times { puts fibonacci.next }
+
+
+-----------------------------------------
+
+Ahora veremos el caso donde podemos usar un enumerador con otro enumerador para simular un select.
+
+def lazy_select enumerator, &block
+    Enumerator.new do |yielder|
+        enumerator.each do |element|
+            yielder << element if block.call element
+        end
+    end
+end
+
+Este enumerator recibe otro enumerator y se queda con aquellos elementos para los cuales devolvió true una vez evaluados en el bloque.
