@@ -3,7 +3,11 @@
 # minúsculas.
 
 def contar(str, word)
-	str.downcase.scan(word.downcase).size 
+	if (str.size > 0 && word.size > 0)
+		str.downcase.scan(word.downcase).size
+	else
+		0
+	end
 end
 
 puts contar("La casa de la esquina tiene la puerta roja y la de ventana blanca.", "De")
