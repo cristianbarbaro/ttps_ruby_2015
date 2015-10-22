@@ -4,7 +4,12 @@
 
 
 def elements_size arr
-	arr.collect { |s| s.size}
+
+	if arr.is_a?(Array)
+		arr.collect { |s| s.size}
+	else
+		raise TypeError
+	end
 end
 
 puts elements_size ['TTPS', 'Opción', 'Ruby', 'Cursada 2015', 'Cristian']
