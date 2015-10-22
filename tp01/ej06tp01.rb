@@ -1,5 +1,10 @@
 def contar_palabra(str, word)
-	#scan devuelve las palabras dentro de un array, luego cuento la cantidad de veces que aparece mi palabra dentro del mismo:  
+
+	if !word.instance_of?(String)
+		raise TypeError
+	end
+
+	#scan devuelve las palabras dentro de un array, luego cuento la cantidad de veces que aparece mi palabra dentro del mismo:
 	str.downcase.scan(/\w+/).count(word.downcase)
 end
 
