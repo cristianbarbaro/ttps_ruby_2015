@@ -1,5 +1,7 @@
 require 'sinatra'
 
+NUMBERS_REG = /^[0-9]*$/
+
 get '/'  do
 	body = [
 		"'/' => Endpoints list \n",
@@ -14,16 +16,24 @@ get '/'  do
 	[200, {}, body]
 end
 
-get '/mcm/:a/:b' do 
-	a = params[:a].to_i
-	b = params[:b].to_i
-	"The least common multiple between #{a} and #{b} is: " + a.lcm(b).to_s + "\n"
+get '/mcm/:a/:b' do
+	a = params[:a]
+	b = params[:b]
+	if (a =~ NUMBERS_REG && b =~ NUMBERS_REG)
+		"The least common multiple between #{a} and #{b} is: " + a.to_i.lcm(b.to_i).to_s + "\n"
+	else
+		status 400
+	end
 end
 
 get '/mcd/:a/:b' do
-	a = params['a'].to_i
-	b = params['b'].to_i
-	"The greatest common divisor between #{a} and #{b} is: " + a.gcd(b).to_s + "\n"
+	a = params['a']
+	b = params['b']
+	if (a =~ NUMBERS_REG && b =~ NUMBERS_REG)
+		"The greatest common divisor between #{a} and #{b} is: " + a.to_i.gcd(b.to_i).to_s + "\n"
+	else
+		status 400
+	end
 end
 
 get '/sum/*' do
@@ -41,11 +51,15 @@ get '/even/*' do
 end
 
 post '/random' do
-	"Returns a random number: #{rand} \n"
+	"A random number: #{rand} \n"
 end
 
 post '/random/:lower/:upper' do
-	low = params[:lower].to_i
-	up = params[:upper].to_i
-	"Returns a random number between #{low} and #{up}: " + rand(low..up).to_s + "\n" 
+	low = params[:lower]
+	up = params[:upper]
+	if (low =~ NUMBERS_REG) && (up =~ NUMBERS_REG) && (low.to_i <= up.to_i)
+		"A number between #{low} and #{up}: " + rand(low.to_i..up.to_i).to_s + "\n" 
+	else
+		status 400
+	end
 end
