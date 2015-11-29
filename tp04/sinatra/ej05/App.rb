@@ -1,5 +1,11 @@
 require 'sinatra'
 
+require_relative '../ej06/ej06.rb'
+require_relative '../ej07/ej07.rb'
+
+use XNumber
+use XHeader
+
 NUMBERS_REG = /^[0-9]*$/
 
 get '/'  do
