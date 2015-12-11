@@ -101,7 +101,7 @@
           apellido:   'Barbaro'
       }
 
-      ```
+    ```
 
 + **Rangos:**
   + Tenemos varias formas de escribirlo:
@@ -262,7 +262,7 @@
 
       end
       ```
-      
+
       Esto último no es necesario hacerse si usamos el `attr_accesor`. La vida se hace sencilla a veces.
 
 + **Colecciones, bloques e iteradores:**
