@@ -5,9 +5,7 @@
 + Otro tema que se trata es _GIT_. De nuevo, por ahora no me interesa mucho ver hasta dónde es capaz de llegar mi conocimiento sobre esta herramienta de versionado.
 
 
-#### Una dosis rápida de Ruby (página 85):
-
-+ Sobre el lenguaje:
++ **Sobre el lenguaje:**
   + Dinámico.
   + Orientado a objetos.
   + Características funcionales.
@@ -129,7 +127,7 @@
     ```
     Lo que ocurre aquí es que ```&``` llama a ```to_proc``` y siempre debe recibir un símbolo para que funcione. Este mensaje lo recibe el objeto que es enviado como parámetro al bloque, en este caso queda implícito (es decir, se ejecuta para cada elemento de la iteración).
 
-  * También tenemos casos en los que les enviamos un mensaje a un ```inject``` o un ```reduce```. Ruby nos da la posibilidad de hacer las cosas con poco código y de forma bonita:
+  + También tenemos casos en los que les enviamos un mensaje a un ```inject``` o un ```reduce```. Ruby nos da la posibilidad de hacer las cosas con poco código y de forma bonita:
 
     ```ruby
     #Sumatoria:
@@ -145,6 +143,7 @@
 
 
 + **Lambdas:**
+
   ```ruby
     uno  = lambda { |n| n * 2 }
     dos  = ->(n, m){ n * 2 + m }
