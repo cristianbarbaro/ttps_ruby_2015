@@ -34,20 +34,24 @@
   + Recordemos que tenemos interpolación y que esta se da solo cuando contamos con comillas dobles. Hay varias formas de interpolar:
     + ``` "Interpolando: #{'Ja'*3}!" ```
     + También contamos con esta forma:
+
       ```ruby
         %q/Hola/  #Escribe un string de comillas simples.
         %q!Chau!  
         %Q{Interpolando: #{3+3}} #Genera un string de comillas dobles (por eso se puede interpolar).
       ```
+
     + También tenemos esta forma de hacer las cosas: ```"%05d" % 123   #=> "00123" ```. Esto recuerda un poco al ```printf```. Por ahora no nos quedemos con esta que, definitivamente, no es precisa.
   + Algo interesante sobre la concatenación, hay una manera que casi me hizo ir peor en el primer coloquio:
 
   + Usando el operando ```<<```:
+
     ```ruby
     a = "hello "
     a << "world"   #=> "hello world"
     a.concat(33)   #=> "hello world!"
     ```
+
   + Textos de más de una línea:
 
     ```
@@ -61,12 +65,15 @@
     str.upcase
 
     ```
+
     + La función scan devuelve un arreglo con la cantidad de elementos que le envío como argumento. Puedo decirle que me devuelva un arreglo con las palabras que contiene ese string diciéndole: ```str.scan(/\w+/)```.
 
     + La función ```sub(str, arg)``` reemplaza todas las cadenas que coincida con _arg_ en _str_.
 
+
 + **Símbolos:**
   + Se garantiza que son únicos y no se necesita asignarles ningún valor.
+
 
 + **Arreglos:**
   + Veamos algunas maneras de crear arreglos:
@@ -76,6 +83,7 @@
     + También podemos tener arrays de símbolos de la misma forma que obtuvimos strings y con su interpolación. Debe usarse ```%i``` sin interpolar y ```%I``` con interpolación.
     + Si usamos ```%s``` obtendremos un único símbolo con una frase.
     + Se pueden agregar elementos en un arreglo usando la función ```push()``` o usando el operando ```<<```.
+
 
 + **Hashes:**
   + Veamos su sintaxis, que varía en algún cambio de versión:
@@ -125,6 +133,7 @@
 
     (1..10).select(& :even?)
     ```
+
     Lo que ocurre aquí es que ```&``` llama a ```to_proc``` y siempre debe recibir un símbolo para que funcione. Este mensaje lo recibe el objeto que es enviado como parámetro al bloque, en este caso queda implícito (es decir, se ejecuta para cada elemento de la iteración).
 
   + También tenemos casos en los que les enviamos un mensaje a un ```inject``` o un ```reduce```. Ruby nos da la posibilidad de hacer las cosas con poco código y de forma bonita:
@@ -143,17 +152,19 @@
 
 
 + **Lambdas:**
+  + Veamos un código:
 
-  ```ruby
-    uno  = lambda { |n| n * 2 }
-    dos  = ->(n, m){ n * 2 + m }
-    tres = ->(n, m=0){ n * 2 + m}
+    ```ruby
+      uno  = lambda { |n| n * 2 }
+      dos  = ->(n, m){ n * 2 + m }
+      tres = ->(n, m=0){ n * 2 + m}
 
-    # Entonces
-    uno.call 2          # => 4
-    dos.call 2,3        # => 7
-    tres.call 2         # => 4
-  ```
+      # Entonces
+      uno.call 2          # => 4
+      dos.call 2,3        # => 7
+      tres.call 2         # => 4
+    ```
+
   + Son funciones anónimas. Arriba vimos diferentes maneras de definirlas.
 
 
@@ -251,6 +262,7 @@
 
       end
       ```
+      
       Esto último no es necesario hacerse si usamos el `attr_accesor`. La vida se hace sencilla a veces.
 
 + **Colecciones, bloques e iteradores:**
