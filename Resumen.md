@@ -1,4 +1,4 @@
-### Resumen para rendir el primer parcial teórico:
+### Resumen
 
 + El primer tema que se ve es _Metodologías Ágiles_. Así van a pasar, sin pena ni gloria.
 
@@ -226,14 +226,14 @@
     end
     ```
 
-    Debo agregar implítamente el módulo o sino no será incluido en la clase en la que realice el `include`. Algo similar ocurre si quiero incluir el módulo en vez de extenderlo.
+    Debo agregar implícitamente el módulo o sino no será incluido en la clase en la que realice el `include`. Algo similar ocurre si quiero incluir el módulo en vez de extenderlo.
     Algo que ocurre al hacer esto es que liberamos al usuario de hacer un `extend` explícito (en este problema) de los métodos de clase. Por lo tanto, aquí estamos logrando un cierto encapsulamiento. El usuario estará feliz al tener que hacer algo menos.
 
     + Debemos recordar que `self.included(base)` se ejecuta cuando se realiza un `include` del módulo que lo invoca. Acá tenemos la posiblidad de inicializar (por decirlo de alguna manera) el estado interno del módulo.
 
 
-  + **Mixins:**
-    + Se debe incluir el módulo en la clase que lo va a usar. En general podemos usarlos para armar jerarquías de cosas que en verdad no son familia. Es como pensar en extender una persona a partir de una clase que se llame almacenable o algo similar. La idea es mezclar lo mejor de ambas. Algo así como una chanchada linda.
++ **Mixins:**
+  + Se debe incluir el módulo en la clase que lo va a usar. En general podemos usarlos para armar jerarquías de cosas que en verdad no son familia. Es como pensar en extender una persona a partir de una clase que se llame almacenable o algo similar. La idea es mezclar lo mejor de ambas. Algo así como una chanchada linda.
 
 
 + **Clases y objetos:**
@@ -243,8 +243,8 @@
   + Sobre los atributos y sus accesos (_accessors_):
     + `attr_reader` genera accessors para leer el valor de un atributo (del mismo nombre que el accesor). Este recibe como argumento el nombre de los accessors como símbolo.
     + También tenemos `attr_writer` que genera accessors de solo escritura aunque el más común es
-    + `attr_accesor` que provee acceso tanto a escritura como escritura.
-    + Otra forma de escribir atributos de escritura es definiendo el método `=`:
+    + `attr_accesor` que provee acceso tanto a escritura como lectura.
+    + Otra forma de escribir atributos de escritura es definiendo el método `=` (si no utilizamos el accesor definido en la línea anterior):
 
       ```ruby
       #Ejemplo tomado de la teoría.
@@ -305,12 +305,34 @@
     Aquí podemos ver el `caller` al cual le enviamos el mensaje `yield` con el parámetro. Cabe destacar que esto se puede poner tan complicado como se desee. Aun así, es un tema muy interesante.
 
 
++ **Herencia:**
+  + La manera de declarar herencia es usando el operador `<`, con él declaramos que una clase es subclase de otra.
+
+
++ **Mixins:**
+  + Un método no puede tener instancias porque no son clases, entonces
+  + cuando incluimos un módulo a una definición de clase sucede que
+  + los métodos de instancia de definidos en el módulo son incluidos como métodos de instancia de la clase; es como decir que se mezclan (**mixed in**). Por lo tanto,
+  + los módulos _mixed in_ se comportan como superclases.
+
+  + Veamos más detalladamente el uso de `include`:
+    + El uso del `include` agrega en Ruby una referencia al módulo que agregará nuevos métodos a nuestra clase.
+    + Si varias clases incluyen al mismo módulo, entonces todas tendrán referencias al mismo.
+    + Si modificamos el módulo durante la ejecución del programa, todas las clases que incluyan al módulo tomarán los cambios automáticamente.
+
+    + La manera en la que se resuelven los conflictos de nombres es:
+      + Primero se busca si la clase del objeto lo implementa
+      + Luego en los mixins incluidos por la clase. Si tiene varios módulos, el último será el considerado
+      + Luego en la superclase
+
+  + Finalmente, los _mixins_ se vuelven potentes cuando interactúan con una clase que lo utiliza.
+
 
 + **Importante:**
   + El modificador de visibilidad `private`, cuando se invoca un método privado no se debe usar la palabra clave `self` ya que los privados no son accesibles por nadie ni siquiera de la familia. Si son privados, es evidente que ese mismo objeto será el que quiere accederlo. :)
 
-  + Recomiendo leer el ej08tp02 de clases y módulos. Allí pasan cosas raras y está bueno para entender un poco cómo funciona la herencia en estos casos.
+  + Recomiendo leer el [ej08tp02](https://github.com/cristianbarbaro/ttps_ruby_2015/blob/master/tp02/clases%20y%20modulos/ej08tp02.rb) de clases y módulos. Allí pasan cosas raras y está bueno para entender un poco cómo funciona la **herencia** en estos casos.
 
 
-=> Dejo para leer a partir de la página 244 (comienza con herencia, módulos y mixins).
+=> Dejo para leer a partir de la página 281 (comienza con mas sobre módulos).
 => Finaliza en la teoría 351.
