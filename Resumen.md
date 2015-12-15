@@ -231,9 +231,18 @@
 
     + Debemos recordar que `self.included(base)` se ejecuta cuando se realiza un `include` del módulo que lo invoca. Acá tenemos la posiblidad de inicializar (por decirlo de alguna manera) el estado interno del módulo.
 
+    + **Un poco sobre argumentos:**
+      + Los argumentos variables se anotan con un `*` antes del nombre del argumento, luego de los parámetros normales logramos este efecto. Se le denomina _splatting an argument_. (Desde la versión 1.9 se puede definir el splatting en cualquier lado, siempre y cuando no tenga más de uno.)
 
-+ **Mixins:**
-  + Se debe incluir el módulo en la clase que lo va a usar. En general podemos usarlos para armar jerarquías de cosas que en verdad no son familia. Es como pensar en extender una persona a partir de una clase que se llame almacenable o algo similar. La idea es mezclar lo mejor de ambas. Algo así como una chanchada linda.
+        ```ruby
+        def varargs(arg1, *rest)
+          "arg1=#{arg1}. rest=#{rest.inspect}"
+        end
+        ```
+
+      + Es común que se usen los splat para pasar argumentos a una superclase usando `super`. Si no se especifican parámetros a `super`, entonces se invoca el método del padre con todos los argumentos que se hayan recibido.
+
+    + Algo sobre `return`: si se retornan varios valores, estos son devueltos en un arreglo.
 
 
 + **Clases y objetos:**
@@ -264,6 +273,7 @@
       ```
 
       Esto último no es necesario hacerse si usamos el `attr_accesor`. La vida se hace sencilla a veces.
+
 
 + **Colecciones, bloques e iteradores:**
   + En Ruby hay dos clases de colecciones: `Hash` y `Array`. (Nunca me había puesto a pensar en esto, es verdad.)
@@ -310,6 +320,8 @@
 
 
 + **Mixins:**
+  + Se debe incluir el módulo en la clase que lo va a usar. En general podemos usarlos para armar jerarquías de cosas que en verdad no son familia. Es como pensar en extender una persona a partir de una clase que se llame almacenable o algo similar. La idea es mezclar lo mejor de ambas. Algo así como una chanchada linda.
+
   + Un método no puede tener instancias porque no son clases, entonces
   + cuando incluimos un módulo a una definición de clase sucede que
   + los métodos de instancia de definidos en el módulo son incluidos como métodos de instancia de la clase; es como decir que se mezclan (**mixed in**). Por lo tanto,
@@ -326,6 +338,27 @@
       + Luego en la superclase
 
   + Finalmente, los _mixins_ se vuelven potentes cuando interactúan con una clase que lo utiliza.
+
+
++ **Excepciones, catch y throw:**
+  + Clase `Exception`: En Ruby se define una jerarquía de excepciones que son subclases de `Exception`. Se supone que con esta jerarquía se hace sencillo el manejo de excepciones.
+  + Toda excepción tiene asociado un mensaje y una traza de ejecución.
+  + Cuando sucede una excepción  se ubica una referencia al objeto con la excepción asociada en la variable global `$!`.
+  + Para entender un poco sobre la jerarquía de excepciones, vamos a ver el [ej01tp03](https://github.com/cristianbarbaro/ttps_ruby_2015/blob/master/tp03/excepciones/ej01tp03.md) de la práctica de Ruby.
+
+  + `rescue`:
+    + Se decide cuál utilizar como si se tratase de sentencias `case`. Para comparar, lo hace con la clase del tipo de excepción que deseamos agregarle. Si se omite este parámetro, entonces va a comparar por defecto con `StandardError`.
+  + `ensure`:
+    + Cuando necesitamos asegurar la ejecución de cierto código al finalizar un método, contamos con esta sentencia. Esta se ejecuta independientemente de si hubo o no error.
+  + `else`:
+    + Esta sentencia aplica cuando ninguno de los rescue manejan la excepción. Es decir, cuando no hubo error.
+  + `retry`:
+    + Se usa para corregir luego de ocurrir una excepción (hay que tener cuidado de no caer en bucles infinitos).
+  + `raise`:
+    + Lanza explíticamente una excepción.
+    + `RuntimeError` es la excepción que se lanza por defecto si no se le indica el tipo.
+  + `catch` y `throw`: este es un concepto que no termino de entender. Derivo al [ej02tp03](https://github.com/cristianbarbaro/ttps_ruby_2015/blob/master/tp03/excepciones/ej02tp03.md) (se explica brevemente la diferencia entre `throw` y `raise`). Espero que aclare un poco.
+  + Es interesante leer los ejercicios resueltos de esta [parte del trabajo práctico](https://github.com/cristianbarbaro/ttps_ruby_2015/tree/master/tp03/excepciones) ya que se explica un poco de todo y hay problemas con código.
 
 
 + **Importante:**
