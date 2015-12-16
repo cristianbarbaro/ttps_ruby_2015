@@ -11,24 +11,24 @@
   + Características funcionales.
   + Capacidad de metaprogramación.
 
-```ruby
+  ```ruby
 
-    NombreDeClaseOModulo
+      NombreDeClaseOModulo
 
-    CONSTANTE
+      CONSTANTE
 
-    @nombre_de_atributo
+      @nombre_de_atributo
 
-    @@atributo_de_clase
+      @@atributo_de_clase
 
-    $variable_global
+      $variable_global
 
-    nombre_de_metodo
+      nombre_de_metodo
 
-    metodo_peligroso!
+      metodo_peligroso!
 
-    metodo_que_pregunta?
-```
+      metodo_que_pregunta?
+  ```
 
 + **Strings literales:**
   + Recordemos que tenemos interpolación y que esta se da solo cuando contamos con comillas dobles. Hay varias formas de interpolar:
@@ -321,7 +321,6 @@
 
 + **Mixins:**
   + Se debe incluir el módulo en la clase que lo va a usar. En general podemos usarlos para armar jerarquías de cosas que en verdad no son familia. Es como pensar en extender una persona a partir de una clase que se llame almacenable o algo similar. La idea es mezclar lo mejor de ambas. Algo así como una chanchada linda.
-
   + Un método no puede tener instancias porque no son clases, entonces
   + cuando incluimos un módulo a una definición de clase sucede que
   + los métodos de instancia de definidos en el módulo son incluidos como métodos de instancia de la clase; es como decir que se mezclan (**mixed in**). Por lo tanto,
@@ -365,7 +364,3 @@
   + El modificador de visibilidad `private`, cuando se invoca un método privado no se debe usar la palabra clave `self` ya que los privados no son accesibles por nadie ni siquiera de la familia. Si son privados, es evidente que ese mismo objeto será el que quiere accederlo. :)
 
   + Recomiendo leer el [ej08tp02](https://github.com/cristianbarbaro/ttps_ruby_2015/blob/master/tp02/clases%20y%20modulos/ej08tp02.rb) de clases y módulos. Allí pasan cosas raras y está bueno para entender un poco cómo funciona la **herencia** en estos casos.
-
-
-=> Dejo para leer a partir de la página 281 (comienza con mas sobre módulos).
-=> Finaliza en la teoría 351.
