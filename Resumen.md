@@ -148,7 +148,7 @@
     (1..100).reduce(:+)
     ```
 
-  + Hay un ejercicio donde se me da un arreglo y me piden que lo ordene llamando a una función que se encarga de ello. Lo que sucede es que al enviarselo a ella debo hacerlo haciendo el arreglo splat antes de mandarlo o se me retornará un arreglo con un arreglo ordenado dentro.
+  + Hay un ejercicio donde se me da un arreglo y me piden que lo ordene llamando a una función que se encarga de ello. Lo que sucede es que al enviárselo a ella debo hacerlo haciendo el arreglo splat antes de mandarlo o se me retornará un arreglo con un arreglo ordenado dentro.
 
 
 + **Lambdas:**
@@ -226,7 +226,7 @@
     end
     ```
 
-    Debo agregar implícitamente el módulo o sino no será incluido en la clase en la que realice el `include`. Algo similar ocurre si quiero incluir el módulo en vez de extenderlo.
+    Debo agregar explícitamente el módulo o sino no será extendido en la clase en la que realice el `include`. Algo similar ocurre si quiero incluir el módulo en vez de extenderlo.
     Algo que ocurre al hacer esto es que liberamos al usuario de hacer un `extend` explícito (en este problema) de los métodos de clase. Por lo tanto, aquí estamos logrando un cierto encapsulamiento. El usuario estará feliz al tener que hacer algo menos.
 
     + Debemos recordar que `self.included(base)` se ejecuta cuando se realiza un `include` del módulo que lo invoca. Acá tenemos la posiblidad de inicializar (por decirlo de alguna manera) el estado interno del módulo.
