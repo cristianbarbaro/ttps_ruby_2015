@@ -248,7 +248,7 @@
 + **Clases y objetos:**
   + Sobre el método `initialize`: cada vez que invocamos `new`, Ruby aloca espacio de memoria para alojar un objeto no inicializado y luego llama al método `initialize` pasándole cada parámetro que recibiera `new` si correspondiese. (En otras palabras, `initialize` nos permite configurar el estado inicial de nuestros objetos.)
 
-  + Las variables de instancia comienzan el símbolo _@_.
+  + Las variables de instancia comienzan con el símbolo _@_.
   + Sobre los atributos y sus accesos (_accessors_):
     + `attr_reader` genera accessors para leer el valor de un atributo (del mismo nombre que el accesor). Este recibe como argumento el nombre de los accessors como símbolo.
     + También tenemos `attr_writer` que genera accessors de solo escritura aunque el más común es
@@ -296,7 +296,7 @@
 
 + **Enumeradores:**
 
-  + La clase `Enumerator` se obtiene de una colección con el mensaje `to_enum` o `enum_for`. También puede obtenerse un enumerador si le mandamos el mensaje `each` (esto sucede con cada iterador que es invocado sin bloque: el resultado es un iterador). Se recorre cada uno de sus elementos con el mensaje `next`.
+  + La clase `Enumerator` se obtiene de una colección luego de enviarles el mensaje `to_enum` o `enum_for`. También puede obtenerse un enumerador si le mandamos el mensaje `each` (esto sucede con cada iterador que es invocado sin bloque: el resultado es un iterador). Se recorre cada uno de sus elementos con el mensaje `next`.
 
   + Hablemos un poco de los _lazy enumerators_: estos se generan bajo demanda. Reciben un bloque que contiene la lógica sobre cómo se debe retornar cada elemento. Dentro del mismo se ejecuta el bloque y queda a la espera de que le digamos que nos dé el siguiente elemento. Así podemos generar **secuencias infinitas**.
 
@@ -320,23 +320,21 @@
 
 
 + **Mixins:**
-  + Se debe incluir el módulo en la clase que lo va a usar. En general podemos usarlos para armar jerarquías de cosas que en verdad no son familia. Es como pensar en extender una persona a partir de una clase que se llame almacenable o algo similar. La idea es mezclar lo mejor de ambas. Algo así como una chanchada linda.
+  + Se debe incluir el módulo en la clase que lo va a usar. En general podemos usarlos para armar jerarquías de cosas que en realidad no son familia. Es como pensar en extender una persona a partir de una clase que se llame _Almacenable_ o algo similar. La idea es mezclar lo mejor de ambas. Algo así como una chanchada linda.
   + Un método no puede tener instancias porque no son clases, entonces
   + cuando incluimos un módulo a una definición de clase sucede que
-  + los métodos de instancia de definidos en el módulo son incluidos como métodos de instancia de la clase; es como decir que se mezclan (**mixed in**). Por lo tanto,
+  + los métodos de instancia definidos en el módulo son incluidos como métodos de instancia de la clase; es como decir que se mezclan (**mixed in**). Por lo tanto,
   + los módulos _mixed in_ se comportan como superclases.
-
   + Veamos más detalladamente el uso de `include`:
     + El uso del `include` agrega en Ruby una referencia al módulo que agregará nuevos métodos a nuestra clase.
     + Si varias clases incluyen al mismo módulo, entonces todas tendrán referencias al mismo.
     + Si modificamos el módulo durante la ejecución del programa, todas las clases que incluyan al módulo tomarán los cambios automáticamente.
-
     + La manera en la que se resuelven los conflictos de nombres es:
       + Primero se busca si la clase del objeto lo implementa
       + Luego en los mixins incluidos por la clase. Si tiene varios módulos, el último será el considerado
       + Luego en la superclase
 
-  + Finalmente, los _mixins_ se vuelven potentes cuando interactúan con una clase que lo utiliza.
+  + Finalmente, los _mixins_ se vuelven potentes cuando interactúan con una clase que los utiliza.
 
 
 + **Excepciones, catch y throw:**
@@ -357,10 +355,10 @@
     + Lanza explíticamente una excepción.
     + `RuntimeError` es la excepción que se lanza por defecto si no se le indica el tipo.
   + `catch` y `throw`: este es un concepto que no termino de entender. Derivo al [ej02tp03](https://github.com/cristianbarbaro/ttps_ruby_2015/blob/master/tp03/excepciones/ej02tp03.md) (se explica brevemente la diferencia entre `throw` y `raise`). Espero que aclare un poco.
-  + Es interesante leer los ejercicios resueltos de esta [parte del trabajo práctico](https://github.com/cristianbarbaro/ttps_ruby_2015/tree/master/tp03/excepciones) ya que se explica un poco de todo y hay problemas con código.
+  + Es interesante leer los ejercicios resueltos de esta [parte del trabajo práctico](https://github.com/cristianbarbaro/ttps_ruby_2015/tree/master/tp03/excepciones) ya que se explica un poco de todo y hay problemas resueltos con código.
 
 
 + **Importante:**
   + El modificador de visibilidad `private`, cuando se invoca un método privado no se debe usar la palabra clave `self` ya que los privados no son accesibles por nadie ni siquiera de la familia. Si son privados, es evidente que ese mismo objeto será el que quiere accederlo. :)
 
-  + Recomiendo leer el [ej08tp02](https://github.com/cristianbarbaro/ttps_ruby_2015/blob/master/tp02/clases%20y%20modulos/ej08tp02.rb) de clases y módulos. Allí pasan cosas raras y está bueno para entender un poco cómo funciona la **herencia** en estos casos.
+  + Recomiendo leer el [ej08tp02](https://github.com/cristianbarbaro/ttps_ruby_2015/blob/master/tp02/clases%20y%20modulos/ej08tp02.rb) de clases y módulos. Allí pasan cosas raras y está bueno para entender un poco cómo funciona la **herencia** en casos particulares.
